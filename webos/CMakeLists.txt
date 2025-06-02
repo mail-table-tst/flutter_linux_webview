@@ -179,6 +179,19 @@ else()
       "https://cef-builds.spotifycdn.com/cef_binary_96.0.18%2Bgfe551e4%2Bchromium-96.0.4664.110_linux64_minimal.tar.bz2")
     set(WEBVIEW_CEF_DISTRIB_HASH_SHA1 "2f944adae71dd1a6c4d795373166a09f543c7cbd")
     set(WEBVIEW_CEF_BUILD_TYPE "Release")
+
+    # WEBOS
+    if(DEFINED FLUTTER_TARGET_PLATFORM AND "${FLUTTER_TARGET_PLATFORM}" STREQUAL "elinux-arm")
+      # linux linuxarm
+      set(WEBVIEW_CEF_DISTRIB_NAME
+        "cef_binary_96.0.18+gfe551e4+chromium-96.0.4664.110_linuxarm_minimal")
+      set(WEBVIEW_CEF_DISTRIB_URL
+        "https://cef-builds.spotifycdn.com/cef_binary_96.0.18%2Bgfe551e4%2Bchromium-96.0.4664.110_linuxarm_minimal.tar.bz2")
+      set(WEBVIEW_CEF_DISTRIB_HASH_SHA1 "dae31ebb9fc04b639020f994862f150c825843c8")
+      set(WEBVIEW_CEF_BUILD_TYPE "Release")
+      # The CEF binary distrib requires the PROJECT_ARCH variable
+      set(PROJECT_ARCH "arm")
+    endif()
   endif()
 endif()
 
@@ -277,9 +290,9 @@ target_link_libraries(${PLUGIN_NAME} PRIVATE libcef_dll_wrapper)
 target_link_libraries(${PLUGIN_NAME} PRIVATE cef_library)
 
 # Import GL
-pkg_check_modules(GL REQUIRED gl)
-target_include_directories(${PLUGIN_NAME} PRIVATE ${GL_INCLUDE_DIRS})
-target_link_libraries(${PLUGIN_NAME} PRIVATE ${GL_LIBRARIES})
+#pkg_check_modules(GL REQUIRED gl)
+#target_include_directories(${PLUGIN_NAME} PRIVATE ${GL_INCLUDE_DIRS})
+#target_link_libraries(${PLUGIN_NAME} PRIVATE ${GL_LIBRARIES})
 
 # #######################################################################
 # Installing
